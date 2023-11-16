@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [16.x]
+        node_version: [16.18.0]
 
     steps:
       - name: Checkout
@@ -32,37 +32,29 @@ jobs:
           repository: ${{ env.THEME_REPO }}
           ref: ${{ env.THEME_BRANCH }}
 
-      - name: Build and Deploy
-        uses: theme-keep/hexo-deploy-github-pages-action@master # 使用专门部署 Hexo 到 GitHub pages 的 action
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v4
+        with:
+          token: ${{ secrets.GH_DOTCOM_TOKEN }}
+          node-version: ${{ matrix.node_version }}
+
+      - name: Configuration environment
         env:
-          PERSONAL_TOKEN: ${{ secrets.HEXO_DEPLOY_PRI }} # secret 名
-          PUBLISH_REPOSITORY: $THEME_REPO # 公共仓库，格式：GitHub 用户名/仓库名
-          BRANCH: master # 分支，填 gh-pages 就行
-          PUBLISH_DIR: ./public # 部署 public 目录下的文件
-          
-      # - name: Use Node.js ${{ matrix.node_version }}
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     token: ${{ secrets.GH_DOTCOM_TOKEN }}
-      #     node-version: ${{ matrix.node_version }}
+          # private key
+          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
+        run: |
+          sudo timedatectl set-timezone "Asia/Shanghai"
+          mkdir -p ~/.ssh/
+          echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name $GIT_USER
+          git config --global user.email $GIT_EMAIL
 
-      # - name: Configuration environment
-      #   env:
-      #     # private key
-      #     HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
-      #   run: |
-      #     sudo timedatectl set-timezone "Asia/Shanghai"
-      #     mkdir -p ~/.ssh/
-      #     echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
-      #     chmod 600 ~/.ssh/id_rsa
-      #     ssh-keyscan github.com >> ~/.ssh/known_hosts
-      #     git config --global user.name $GIT_USER
-      #     git config --global user.email $GIT_EMAIL
+      - name: Install dependencies
+        run: |
+          npm install
 
-      # - name: Install dependencies
-      #   run: |
-      #     npm install
-
-      # - name: Deploy hexo
-      #   run: |
-      #     npm run build
+      - name: Deploy hexo
+        run: |
+          npm run deploy

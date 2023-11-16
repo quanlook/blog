@@ -301,7 +301,7 @@ firewalld的配置文件以xml格式为主（主配置文件firewalld.conf例外
 
 - firewalld提供了9个zone：
 
-  - - drop 任何流入的包都被丢弃，不做任何响应。只允许流出的数据包。
+    - - drop 任何流入的包都被丢弃，不做任何响应。只允许流出的数据包。
   - block 　 任何流入的包都被拒绝，返回`icmp-host-prohibited`报文(ipv4)或`icmp6-adm-prohibited`报文(ipv6)。只允许由该系统初始化的网络连接
   - public 默认的zone。部分公开，不信任网络中其他计算机，只放行特定服务。
   - external 只允许选中的服务通过，用在路由器等启用伪装的外部网络。认为网路中其他计算器不可信。
