@@ -197,7 +197,8 @@ iptables中的四个规则表
 
 **规则永久生效：**
 
-iptables不是一个守护进程，我们修改只是当前的修改，重启服务或重启系统就会失效。要想使规则永久生效，需要保存规则： service iptables save ，使我们当前的配置保存到配置文件 /etc/sysconfig/iptables 中，然后重启服务或者重启主机，使规则加载到内存，才能使配置永久生效。防火墙的运行需要建立在网络配置正常的前提下。
+iptables不是一个守护进程，我们修改只是当前的修改，重启服务或重启系统就会失效。
+要想使规则永久生效，需要保存规则： `service iptables save` ，使我们当前的配置保存到配置文件 `/etc/sysconfig/iptables` 中，然后重启服务或者重启主机，使规则加载到内存，才能使配置永久生效。防火墙的运行需要建立在网络配置正常的前提下。
 
 `services iptables start / stop / restart` 开启/停止/重启 iptables服务
 
