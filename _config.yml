@@ -114,5 +114,6 @@ theme: butterfly-4.9.0
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: 'git'
-  repo: git@github.com:quanlook/quanlook.github.io
+  type: git
+  repo: https://github.com/quanlook/quanlook.github.io
+  branch: master
