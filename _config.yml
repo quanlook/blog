@@ -23,7 +23,7 @@ timezone: 'Asia/Chongqing'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://quanlook.top
+url: https://quanlook.top
 root: /
 permalink: "/:categories/:year/:month/:day/:title/"
 permalink_defaults:
@@ -114,4 +114,5 @@ theme: butterfly-4.9.0
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: 'git'
+  repo: git@github.com:quanlook/quanlook.github.io
