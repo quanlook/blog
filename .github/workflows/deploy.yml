@@ -33,8 +33,9 @@ jobs:
           ref: ${{ env.THEME_BRANCH }}
 
       - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
+          token: ${{ secrets.GH_DOTCOM_TOKEN }}
           node-version: ${{ matrix.node_version }}
 
       - name: Configuration environment
