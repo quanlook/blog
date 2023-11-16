@@ -33,7 +33,7 @@ jobs:
           ref: ${{ env.THEME_BRANCH }}
 
       - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
 
